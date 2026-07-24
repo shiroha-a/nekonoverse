@@ -1,3 +1,19 @@
+## [20260724-1](https://github.com/nekonoverse/nekonoverse/releases/tag/20260724-1) — 2026-07-24
+
+### セキュリティ
+
+依存関係のセキュリティ更新リリース。Dependabot アラート 21 件 (high 16 / medium 4 / low 1) と CodeQL アラート 1 件 (medium) を解消した。いずれもランタイムコードの変更は最小限で、主に lockfile / 依存宣言の更新。
+
+- **backend ランタイム依存 `Pillow` を 12.3.0 に更新 (high)** — `ImageCmsTransform.apply()` の heap out-of-bounds write、JPEG2000 タイルデコードのスクラッチバッファ肥大化 DoS、`Image.paste()`/`Image.crop()` の符号付き座標オーバーフローによる heap out-of-bounds write、`ImageFilter.RankFilter` の整数オーバーフロー、`GdImageFile`/`BdfFontFile`/`FontFile`/`PcfFontFile` の decompression bomb チェック欠落、McIdas AREA ファイルの mmap 経路での out-of-bounds read など複数の CVE を含む (12.2.0 → 12.3.0)。`pyproject.toml` の制約 `>=12.2.0` は満たすため `uv lock --upgrade-package` で解決 (#1105)
+- **backend ランタイム依存 `pyasn1` を 0.6.4 に更新 (high)** — REAL 値デコード時の非制御リソース消費と OBJECT IDENTIFIER / RELATIVE-OID 処理の二次関数的計算量による DoS を修正 (0.6.3 → 0.6.4)。`cryptography` の transitive 依存 (#1105)
+- **backend ランタイム依存 `aiosmtplib` を 5.1.2 に更新 (medium)** — 送信者/宛先アドレスの CR/LF によるSMTP コマンドインジェクションを修正 (5.1.0 → 5.1.2) (#1105)
+- **frontend ランタイム依存 `dompurify` を 3.4.12 に更新 (low)** — `CUSTOM_ELEMENT_HANDLING` 有効時に許可済みカスタム要素で `afterSanitizeElements` フックがバイパスされる不具合を修正 (3.4.11 → 3.4.12) (#1105)
+- **frontend devDependency `fast-uri` を 3.1.4 に更新 (high)** — バックスラッシュを権威部区切り文字として扱う host confusion と、IDN 正規化失敗による host confusion を修正。`ajv` (`vite-plugin-pwa` 系列) の transitive 依存で、`overrides` に `^3.1.4` を追加して解決 (#1105)
+- **frontend devDependency `brace-expansion` を更新 (high)** — 連続する非展開 `{}` グループによる指数関数的計算量 DoS を修正。`minimatch` 経由の transitive 依存で、トップレベル系列は `overrides` で `^5.0.7` に、`filelist` 配下の古い系列は `^2.1.2` にネスト指定して個別解決 (#1105)
+- **backend `admin.py` のスタックトレース情報露出を修正 (CodeQL py/stack-trace-exposure, medium)** — 絵文字インポート API (`/api/v1/admin/emojis/import`) で失敗時の例外メッセージをそのまま admin API レスポンスに含めていた箇所を修正。詳細はサーバーログにのみ記録し、レスポンスには定型メッセージのみ返すよう変更 (#1105)
+
+---
+
 ## [20260621-1](https://github.com/nekonoverse/nekonoverse/releases/tag/20260621-1) — 2026-06-21
 
 ### セキュリティ
