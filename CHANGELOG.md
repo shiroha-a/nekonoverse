@@ -1,3 +1,18 @@
+## [20260807-1](https://github.com/nekonoverse/nekonoverse/releases/tag/20260807-1) — 2026-08-07
+
+### セキュリティ
+
+依存関係のセキュリティ更新リリース。Dependabot が個別に開いていた6件の更新PRを1本に統合してマージした (#1113)。
+
+- **frontend devDependency `seroval` を 1.5.6 に更新 (critical)** — `seroval.fromJSON()` の Promise resolver 型混同により attacker-controlled メソッドが呼び出される脆弱性を修正 (GHSA-mv8w-475r-vwqw)。develop 側の `npm audit` が本脆弱性により失敗していたため、他5件の更新もこれに合わせて統合 (1.5.0 → 1.5.6) (#1113)
+- **frontend devDependency `undici` を 7.29.0 に更新 (high + medium)** — Cache-Control ディレクティブ解析不備によるクロスユーザー情報漏洩 (GHSA-4cwx-7wf7-3272, high)、blob body の type 値未検証による Content-Type ヘッダへの CRLF インジェクション (GHSA-m8rv-5g2x-5cg5)、Cache-Control の空白バイパスによる共有キャッシュ汚染 (GHSA-jr45-8vmc-qm54)、リトライ時の Content-Length 不整合によるレスポンス破損 (GHSA-8xcm-r25x-g524)、`setCookie()` の domain/unparsed 値未検証によるクッキー属性インジェクション (GHSA-v3r7-h72x-cjcm) を修正。テスト/ビルド専用 (jsdom の transitive 依存) で本番バンドルには含まれない (7.28.0 → 7.29.0) (#1113)
+- **backend ランタイム依存 `cryptography` を 50.0.0 に更新** — PKCS7 復号 (`pkcs7_decrypt_der` および PEM/S-MIME variant) でエラー・タイミングが識別可能なため Bleichenbacher oracle として悪用され得る脆弱性を修正 (CVE-2026-69247) (49.0.0 → 50.0.0) (#1113)
+- **frontend devDependency `fast-uri` を 3.1.5 に更新** — URI パース処理のセキュリティ修正 (GHSA-7p8r-x3mc-p8w7)。`ajv` (`vite-plugin-pwa` 系列) の transitive 依存 (3.1.4 → 3.1.5) (#1113)
+- **frontend devDependency `postcss` を 8.5.25 に更新** — ソースマップの読み込みを `opts.from` フォルダ配下に制限するセキュリティ強化を含む複数のバグ修正 (8.5.13 → 8.5.25) (#1113)
+- **backend ランタイム依存 `aiohttp` を 3.14.3 に更新** — バグ修正リリース (3.14.1 → 3.14.3) (#1113)
+
+---
+
 ## [20260724-1](https://github.com/nekonoverse/nekonoverse/releases/tag/20260724-1) — 2026-07-24
 
 ### セキュリティ
