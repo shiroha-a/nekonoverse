@@ -1,3 +1,13 @@
+## [20260810-1](https://github.com/nekonoverse/nekonoverse/releases/tag/20260810-1) — 2026-08-10
+
+### セキュリティ
+
+依存関係のセキュリティ更新リリース。
+
+- **frontend ランタイム依存 `dompurify` を 3.4.13 に更新** — `IN_PLACE` サニタイズ時のフック削除不具合、フックによる clone-guard 迂回、`ownerDocument` 経由の DOM clobbering を修正。CVE/GHSA番号は未付与だが XSS 対策強化にあたる修正。利用箇所は Terms.tsx / Privacy.tsx の `ALLOWED_TAGS`/`ALLOWED_ATTR` 明示呼び出しのみで挙動互換 (3.4.12 → 3.4.13) (#1115)
+
+---
+
 ## [20260807-1](https://github.com/nekonoverse/nekonoverse/releases/tag/20260807-1) — 2026-08-07
 
 ### セキュリティ
